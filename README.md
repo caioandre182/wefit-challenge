@@ -22,13 +22,12 @@ O desafio propõe criar um endpoint que torne o formulário da imagem abaixo, fu
 
 ## Como rodar o projeto localmente
 
-### Clone o projeto
+### Como clonar e executar
+```bash
 git clone https://github.com/caioandre182/wefit-challenge.git
 cd wefit-challenge
-
-### Rode com Maven (ou sua IDE favorita)
 ./mvnw spring-boot:run
-
+```
 ## Para testar
 
 http://localhost:8080/swagger-ui.html
