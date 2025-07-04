@@ -7,7 +7,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.MediaType;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -70,5 +74,50 @@ public class UserControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(payload))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldReturnUser_whenDocumentExists_thenReturns200() throws Exception {
+        String jsonPayload = """
+        {
+          "type": "FISICA",
+          "name": "Maria Oliveira",
+          "email": "maria@email.com",
+          "cpf": "39053344705",
+          "phone": "1133445566",
+          "cellPhone": "11994917188",
+          "zipCode": "03523020",
+          "street": "Rua das Palmeiras",
+          "district": "Centro",
+          "number": "456",
+          "city": "São Paulo",
+          "complement": "Casa",
+          "stateCode": "SP"
+        }
+        """;
+
+        mockMvc.perform(post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonPayload))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(
+                        org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                                .get("/users/document/39053344705"))
+                .andExpect(status().isOk())
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers
+                        .jsonPath("$.name").value("Maria Oliveira"))
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers
+                        .jsonPath("$.email").value("maria@email.com"));
+    }
+
+    @Test
+    public void shouldReturn404_whenDocumentDoesNotExist() throws Exception {
+        String nonExistingCpf = "99999999999";
+
+        mockMvc.perform(get("/users/document/" + nonExistingCpf))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("CPF não encotrado na base de dados"));
     }
 }

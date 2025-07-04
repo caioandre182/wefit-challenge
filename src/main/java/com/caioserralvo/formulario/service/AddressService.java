@@ -1,5 +1,6 @@
 package com.caioserralvo.formulario.service;
 
+import com.caioserralvo.formulario.client.ViaCepClient;
 import com.caioserralvo.formulario.client.ViaCepResponse;
 import com.caioserralvo.formulario.dto.AddressResponse;
 import com.caioserralvo.formulario.exception.NotFoundException;
@@ -9,15 +10,14 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AddressService {
-    private final RestTemplate restTemplate;
+    private final ViaCepClient viaCepClient;
 
-    public AddressService(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
+    public AddressService(ViaCepClient viaCepClient){
+        this.viaCepClient = viaCepClient;
     }
 
     public AddressResponse getAddressByZipCode(ZipCode zipCode){
-        String url = "https://viacep.com.br/ws/" + zipCode.getValue() + "/json/";
-        ViaCepResponse response = restTemplate.getForObject(url, ViaCepResponse.class);
+        ViaCepResponse response = viaCepClient.getAddress(zipCode.getValue());
 
         if(response == null || response.getErro() != null){
             throw new NotFoundException("CEP não encontrado");
