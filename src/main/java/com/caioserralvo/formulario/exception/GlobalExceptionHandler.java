@@ -1,7 +1,6 @@
 package com.caioserralvo.formulario.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,5 +32,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleGeneric(Exception ex) {
         return new ErrorResponse("Erro inesperado. Contate o suporte.");
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ErrorResponse handleNotFound(NotFoundException ex) {
+        return new ErrorResponse(ex.getMessage());
     }
 }
