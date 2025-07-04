@@ -71,6 +71,31 @@ POST http://localhost:8080/users
 }
 ```
 
+### Requisicação de busca de Usuário por CPF ou CNPJ
+
+GET http://localhost:8080/users/document/390.533.447-05
+
+### Resposta 
+
+```json
+{
+  "type": "FISICA",
+  "name": "João da Silva",
+  "email": "joao@email.com",
+  "cpf": "390.533.447-05",
+  "cnpj": "",
+  "phone": "(11) 3333-4444",
+  "cellPhone": "(11) 98888-9999",
+  "zipCode": "04547-000",
+  "street": "Av. Paulista",
+  "district": "Bela Vista",
+  "number": "123",
+  "city": "São Paulo",
+  "complement": "Apto 45",
+  "stateCode": "SP"
+}
+```
+
 ### Requisição de busca CEP
 
 GET http://localhost:8080/address/04547000
