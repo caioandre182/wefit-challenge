@@ -1,12 +1,21 @@
 package com.caioserralvo.formulario.vo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Embeddable
 @Getter
 public class CellPhone {
-    private final String value;
+
+    @Column(name = "cellPhone")
+    private String value;
+
+    protected CellPhone(){
+
+    }
 
     public CellPhone(String value) {
         if (value == null || value.isBlank()) {

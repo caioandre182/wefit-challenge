@@ -1,12 +1,20 @@
 package com.caioserralvo.formulario.vo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Embeddable
 @Getter
 public class Phone {
-    private final String value;
+    @Column(name = "phone")
+    private String value;
+
+    protected Phone(){
+
+    }
 
     public Phone(String value) {
         if (value == null || value.isBlank()) {

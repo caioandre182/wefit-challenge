@@ -1,12 +1,21 @@
 package com.caioserralvo.formulario.vo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Embeddable
 @Getter
 public class Cnpj {
-    private final String value;
+
+    @Column(name = "cnpj")
+    private String value;
+
+    protected Cnpj(){
+
+    }
 
     public Cnpj(String value) {
         String digitsOnly = value.replaceAll("\\D", "");

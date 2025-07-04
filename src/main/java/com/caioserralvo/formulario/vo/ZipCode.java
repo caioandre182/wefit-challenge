@@ -1,12 +1,20 @@
 package com.caioserralvo.formulario.vo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Embeddable
 @Getter
 public class ZipCode {
-    private final String value;
+
+    @Column(name = "zipCode")
+    private String value;
+
+    protected ZipCode() {
+    }
 
     public ZipCode(String value){
         if (value == null || value.isBlank()){

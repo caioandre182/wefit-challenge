@@ -1,12 +1,20 @@
 package com.caioserralvo.formulario.vo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Embeddable
 @Getter
 public class Cpf {
-    private final String value;
+    @Column(name = "cpf")
+    private String value;
+
+    protected Cpf(){
+
+    }
 
     public Cpf(String value) {
         if (value == null || value.isBlank()) {

@@ -2,20 +2,40 @@ package com.caioserralvo.formulario.domain;
 
 import com.caioserralvo.formulario.enums.PersonType;
 import com.caioserralvo.formulario.vo.*;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Entity
+@Table(name= "users")
 @Getter
 public class User {
-    private final PersonType type;
-    private final String name;
-    private final Email email;
-    private final Cpf cpf;
-    private final Cnpj cnpj;
-    private final Phone phone;
-    private final CellPhone cellPhone;
-    private final Address address;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private Email email;
+    @Embedded
+    private Cpf cpf;
+    @Embedded
+    private Cnpj cnpj;
+    @Embedded
+    private Phone phone;
+    @Embedded
+    private CellPhone cellPhone;
+
+    @Embedded
+    private Address address;
+
+    @Enumerated(EnumType.STRING)
+    private PersonType type;
+
+    protected User(){
+
+    }
 
     public User(PersonType type, String nome, Email email, Cpf cpf, Cnpj cnpj, Phone phone, CellPhone cellPhone, Address address) {
         if (nome == null || nome.isBlank()) {

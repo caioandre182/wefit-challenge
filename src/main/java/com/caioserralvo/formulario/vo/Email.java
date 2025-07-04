@@ -1,20 +1,23 @@
 package com.caioserralvo.formulario.vo;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+@Embeddable
 @Getter
 public class Email {
     private static final Pattern EMAIL_REGEX = Pattern.compile(
             "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"
     );
 
-    private final String value;
+    @Column(name = "email")
+    private String value;
 
     protected Email(){
-        this.value = null;
     }
 
     public Email(String value) {

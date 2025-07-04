@@ -1,19 +1,32 @@
 package com.caioserralvo.formulario.vo;
 
 import com.caioserralvo.formulario.enums.StateCode;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Embeddable
 @Getter
 public class Address {
-    private final ZipCode zipCode;
-    private final String street;
-    private final String district;
-    private final String number;
-    private final String complement;
-    private final String city;
-    private final StateCode stateCode;
+
+    @Embedded
+    private ZipCode zipCode;
+    private String street;
+    private String district;
+    private String number;
+    private String complement;
+    private String city;
+
+    @Enumerated(EnumType.STRING)
+    private StateCode stateCode;
+
+    protected Address(){
+
+    }
 
     public Address(ZipCode zipCode, String street, String district,
                    String number, String complement, String city, StateCode stateCode){
