@@ -5,29 +5,29 @@ import lombok.Getter;
 import java.util.Objects;
 
 @Getter
-public class Telefone {
+public class CellPhone {
     private final String value;
 
-    public Telefone(String value) {
+    public CellPhone(String value) {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("Telefone não pode ser nulo ou vazio.");
+            throw new IllegalArgumentException("Celular não pode ser nulo ou vazio.");
         }
 
         String digitsOnly = value.replaceAll("\\D", "");
 
         if (!isValid(digitsOnly)) {
-            throw new IllegalArgumentException("Telefone fixo inválido.");
+            throw new IllegalArgumentException("Celular inválido.");
         }
 
         this.value = digitsOnly;
     }
 
-    private boolean isValid(String telefone) {
-        return telefone.matches("^\\d{2}[2-5]\\d{7}$");
+    private boolean isValid(String celular) {
+        return celular.matches("^\\d{2}9\\d{8}$");
     }
 
     public String format() {
-        return value.replaceFirst("(\\d{2})(\\d{4})(\\d{4})", "($1) $2-$3");
+        return value.replaceFirst("(\\d{2})(\\d{1})(\\d{4})(\\d{4})", "($1) $2$3-$4");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Telefone {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Telefone other)) return false;
+        if (!(o instanceof CellPhone other)) return false;
         return value.equals(other.value);
     }
 

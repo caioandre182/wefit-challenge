@@ -1,6 +1,6 @@
 package com.caioserralvo.formulario.enums;
 
-public enum TipoPessoa {
+public enum PersonType {
     FISICA,
     JURIDICA
 }
